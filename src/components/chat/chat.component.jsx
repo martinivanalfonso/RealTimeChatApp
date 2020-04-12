@@ -15,7 +15,8 @@ const Chat = () => {
   const [room, setRoom] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const END_POINT = "localhost:5000";
+  //const END_POINT = "https://chat-app-martinalfonso.herokuapp.com/";
+  const END_POINT = "http://localhost:5000/";
   useEffect(() => {
     const { name, room } = queryString.parse(window.location.search);
     console.log(name, room)
@@ -47,12 +48,16 @@ const Chat = () => {
       }
   }
 
+  const seeUsersOnline = () => {
+    socket.emit('seeUsersOnline', {name, room}, () => console.log('success') )
+  }
+
   console.log(message, messages)
 
   return (
     <div className="outerContainer">
       <div className="container">
-          <InfoBar room={room} />
+          <InfoBar room={room} seeUsersOnline={seeUsersOnline} />
           <Messages messages={messages} name={name}/>
         <Input
           message={message}

@@ -4,11 +4,11 @@ import "./info-bar.styles.css";
 import CloseIcon from "../../icons/closeIcon.png";
 import OnlineIcon from "../../icons/onlineIcon.png";
 
-const InfoBar = ({ room }) => (
+const InfoBar = ({ room, seeUsersOnline }) => (
   <div className="infoBar">
     <div className="leftInnerContainer">
-      <img src={OnlineIcon} alt="online icon" className="onlineIcon" />
-      <h3>{room}</h3>
+      <img src={OnlineIcon} alt="online icon" className="onlineIcon" onClick={ () => seeUsersOnline() } />
+      <h3>#{room}</h3>
     </div>
     <div className="rightInnerContainer">
       <a href="/">
