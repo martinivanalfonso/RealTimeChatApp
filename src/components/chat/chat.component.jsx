@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import queryString from "query-string";
 import io from "socket.io-client";
+import { useHistory } from "react-router-dom";
 
 import InfoBar from "../info-bar/info-bar.component";
 import Input from "../input/input.component";
@@ -15,28 +16,27 @@ const Chat = () => {
   const [room, setRoom] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const history = useHistory();
   //const END_POINT = "https://chat-app-martinalfonso.herokuapp.com/";
   const END_POINT = "http://localhost:5000/";
   useEffect(() => {
-    const { name, room } = queryString.parse(window.location.search);
-    console.log(name, room);
+    const { name, room } = queryString.parse(history.location.search);
     socket = io(END_POINT);
-
     setName(name);
     setRoom(room);
 
-    socket.emit("join", { name, room }, () => {});
+    socket.emit("join", { name, room }, (error) => {
+      if (error) history.push("/?error=nametaken");
+    });
+
+    socket.on("message", (message) => {
+      setMessages((messages) => [...messages, message]);
+    });
 
     return () => {
-      socket.disconnect()
+      socket.disconnect();
     };
-  }, []);
-
-  useEffect(() => {
-    socket.on("message", (message) => {
-      setMessages(messages => [...messages, message]);
-    });
-  }, []);
+  }, [history]);
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -47,10 +47,8 @@ const Chat = () => {
   };
 
   const seeUsersOnline = () => {
-    socket.emit("seeUsersOnline", { name, room }, () => console.log("success"));
+    socket.emit("seeUsersOnline", { name, room }, () => console.log('success'));
   };
-
-  console.log(message, messages);
 
   return (
     <div className="outerContainer">

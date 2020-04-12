@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
+import queryString from "query-string";
 
 import "./join.styles.css";
 
 const Join = () => {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
-  let history = useHistory();
+  const [error, setError] = useState("")
+  const history = useHistory();
+  useEffect(() => {
+      const { error } = queryString.parse(history.location.search)
+      error === 'nametaken' ? setError('Name has been taken, try a different one') : setError("")
+
+  },[history]) 
   return (
     <div className="joinOuterContainer">
       <div className="joinInnerContainer">
@@ -36,6 +43,7 @@ const Join = () => {
             Sign In
           </button>
         </Link>
+        {error && <p style={{color: 'white'}}>{error}</p>}
       </div>
     </div>
   );
