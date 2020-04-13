@@ -64,7 +64,7 @@ const Chat = () => {
         initial="initial"
         animate="final"
         variants={animationVariants}
-        className="container"
+        className="chatInnerContainer"
       >
         <InfoBar room={room} seeUsersOnline={seeUsersOnline} />
         {isConnected ? (

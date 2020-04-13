@@ -6,11 +6,9 @@
   
   .input {
     border: none;
-    border-radius: 0;
-    padding: 5%;
-    width: 80%;
+    padding: 25px;
     font-size: 1.2em;
-    width:100%;
+    width:80%;
     color: #353535;
   }
   
