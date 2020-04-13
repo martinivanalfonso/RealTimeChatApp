@@ -11,7 +11,7 @@ const Join = () => {
   const history = useHistory();
   useEffect(() => {
       const { error } = queryString.parse(history.location.search)
-      error === 'nametaken' ? setError('Name has been taken, try a different one') : setError("")
+      error === 'nametaken' ? setError('Name taken, try a different one') : setError("")
 
   },[history]) 
   return (
@@ -20,6 +20,7 @@ const Join = () => {
         <h1 className="heading">Join</h1>
         <div>
           <input
+            autoFocus
             placeholder="Name"
             className="joinInput"
             type="text"

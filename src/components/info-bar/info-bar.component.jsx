@@ -7,7 +7,9 @@ import OnlineIcon from "../../icons/onlineIcon.png";
 const InfoBar = ({ room, seeUsersOnline }) => (
   <div className="infoBar">
     <div className="leftInnerContainer">
-      <img src={OnlineIcon} alt="online icon" className="onlineIcon" onClick={ () => seeUsersOnline() } />
+      <button id="onlineIcon" onClick={() => seeUsersOnline()}>
+        <img src={OnlineIcon} alt="online icon" />
+      </button>
       <h3>#{room}</h3>
     </div>
     <div className="rightInnerContainer">

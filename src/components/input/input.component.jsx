@@ -5,6 +5,7 @@ import "./input.styles.css";
 const Input = ({ message, setMessage, sendMessage }) => (
   <form action="" className="form">
     <input
+      autoFocus
       className="input"
       type="text"
       placeholder="Type a message..."

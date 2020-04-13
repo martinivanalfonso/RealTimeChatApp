@@ -23,7 +23,9 @@
     margin-right: 5%;
   }
   
-  .onlineIcon {
+#onlineIcon {
     margin-right: 5%;
     cursor: pointer;
+    background-color: transparent ;
+    border: none;
   }
