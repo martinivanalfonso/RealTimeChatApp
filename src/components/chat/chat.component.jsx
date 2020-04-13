@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import queryString from "query-string";
 import io from "socket.io-client";
 import { useHistory } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import InfoBar from "../info-bar/info-bar.component";
 import Input from "../input/input.component";
@@ -19,6 +20,11 @@ const Chat = () => {
   const history = useHistory();
   //const END_POINT = "https://chat-app-martinalfonso.herokuapp.com/";
   const END_POINT = "http://localhost:5000/";
+  const animationVariants = {
+    initial: { rotate: 0, scale: 0 },
+    final: { rotate: 0, scale: 1 },
+  };
+
   useEffect(() => {
     const { name, room } = queryString.parse(history.location.search);
     socket = io(END_POINT);
@@ -47,12 +53,17 @@ const Chat = () => {
   };
 
   const seeUsersOnline = () => {
-    socket.emit("seeUsersOnline", { name, room }, () => console.log('success'));
+    socket.emit("seeUsersOnline", { name, room }, () => console.log("success"));
   };
 
   return (
     <div className="outerContainer">
-      <div className="container">
+      <motion.div
+        initial="initial"
+        animate="final"
+        variants={animationVariants}
+        className="container"
+      >
         <InfoBar room={room} seeUsersOnline={seeUsersOnline} />
         <Messages messages={messages} name={name} />
         <Input
@@ -60,7 +71,7 @@ const Chat = () => {
           setMessage={setMessage}
           sendMessage={sendMessage}
         />
-      </div>
+      </motion.div>
     </div>
   );
 };
