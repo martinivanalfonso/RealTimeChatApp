@@ -15,11 +15,12 @@ let socket;
 const Chat = () => {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
+  const [isConnected, setIsConnected] = useState(false);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const history = useHistory();
-  const END_POINT = "https://chat-app-martinalfonso.herokuapp.com/";
-  //const END_POINT = "http://localhost:5000/";
+  //const END_POINT = "https://chat-app-martinalfonso.herokuapp.com/";
+  const END_POINT = "http://localhost:5000/";
   const animationVariants = {
     initial: { rotate: 0, scale: 0 },
     final: { rotate: 0, scale: 1 },
@@ -33,6 +34,7 @@ const Chat = () => {
 
     socket.emit("join", { name, room }, (error) => {
       if (error) history.push("/?error=nametaken");
+      setIsConnected(true);
     });
 
     socket.on("message", (message) => {
@@ -65,7 +67,11 @@ const Chat = () => {
         className="container"
       >
         <InfoBar room={room} seeUsersOnline={seeUsersOnline} />
-        <Messages messages={messages} name={name} />
+        {isConnected ? (
+          <Messages messages={messages} name={name} />
+        ) : (
+          <p className="connectingText">Connecting...</p>
+        )}
         <Input
           message={message}
           setMessage={setMessage}

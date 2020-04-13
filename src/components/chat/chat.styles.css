@@ -17,6 +17,14 @@
   width: 35%;
 }
 
+.connectingText {
+  display:flex;
+  justify-content: center;
+  color: #828282;
+  font-family: 'Helvetica';
+  font-weight: bold;
+}
+
 @media (min-width: 320px) and (max-width: 480px) {
   .outerContainer {
     height: 100%;
