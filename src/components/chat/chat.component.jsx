@@ -19,8 +19,7 @@ const Chat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const history = useHistory();
-  //const END_POINT = "https://chat-app-martinalfonso.herokuapp.com/";
-  const END_POINT = "http://localhost:5000/";
+  const END_POINT = "https://chat-app-martinalfonso.herokuapp.com/";
   const animationVariants = {
     initial: { rotate: 0, scale: 0 },
     final: { rotate: 0, scale: 1 },
